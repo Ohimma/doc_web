@@ -1,0 +1,10 @@
+site_name: SRE Business Docs
+site_url: https://business.guazi-corp.com/docs
+pages:
+  - Index: index.md
+  - Home: home.md
+  - User Guide::
+      - sla: sla.md
+      - release: release.md
+
+theme: readthedocs

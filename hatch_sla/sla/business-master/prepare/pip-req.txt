@@ -1,0 +1,13 @@
+Click==7.0
+Flask==0.12.2
+Flask-SQLAlchemy==2.3.2
+gunicorn==19.9.0
+itsdangerous==0.24
+Jinja2==2.10
+PyMySQL==0.7.11
+requests==2.19.1
+SQLAlchemy==1.2.12
+pyhive==0.6.1
+Flask-Bootstrap==3.3.7
+Flask-Cache==0.13.1
+redis==2.10.6

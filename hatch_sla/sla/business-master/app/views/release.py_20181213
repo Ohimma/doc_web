@@ -1,0 +1,152 @@
+# -*- coding: utf-8 -*-
+
+from flask import  render_template, Response, request
+from app.db import MySQL_query, Cache_query
+from .query_time import get_time
+from .mythread import MyThread
+
+import threading
+
+rlock=threading.RLock()    #RLock本身有一个计数器，如果碰到acquire，那么计数器+1，如果计数器大于0，那么其他线程无法查收，如果碰到release，计数器-1
+
+def release_query(start, stop, judge_host, for_list, start_time, end_time, old_time, query_time):
+    result_list = []
+    print("进入查询")
+    mysql_object = MySQL_query()
+
+    for i in range(start, stop):
+        result_str = ''
+        id = for_list[i]['id']
+        name = for_list[i]['name']
+        name_english = for_list[i]['name_english']
+        person = for_list[i]['person']
+
+        ## 根据业务线信息获取主机列表，业务线和项目没有直接匹配关系
+        if judge_host == "business":
+            host_sql = "select hostname from asset where business_id=%s" % id
+        elif judge_host == "subbusiness":
+            host_sql = "select hostname from asset where sub_business_id=%s" % id
+        else:
+            exit()
+        all_host = mysql_object.sql_query(host_sql, 'cmdb')
+    
+        ## 根据主机信息 间接获取那个项目属于哪个业务线
+        for i in range(len(all_host)):
+                result_str = result_str +  all_host[i][0] + "%%' or onlinehost like '%%"
+        fuck = "onlinehost like '%%" + result_str + "fuckfuck%%'"  
+        ## cmdb 的 gitlab_pid 叫 git_group       
+        gitlab_sql = "select git_group from projects  where %s" % fuck
+        print(gitlab_sql)
+        gitlab_pids = mysql_object.mysql_RowProxy_to_str(gitlab_sql, 'cmdb')
+        
+        if gitlab_pids:
+            release_json = {}
+            print("进入earthworm")
+            earthworm_release_sql = "select count(*) as earthworm_release_count from project_gitlab left join release_apply on project_gitlab.project_id=release_apply.project_id  \
+                where \
+                (release_apply.online_task_id is not null or release_apply.online_gray_task_id is not null ) and  \
+                project_gitlab.gitlab_pid in (%s) and  \
+                (release_apply.create_time>'%s 24:00' and release_apply.create_time<='%s 24:00') " % (gitlab_pids, end_time, start_time)
+
+            print(earthworm_release_sql)
+            earthworm_release = mysql_object.sql_query(earthworm_release_sql, 'earthworm')
+            earthworm_release_count = earthworm_release[0][0]
+
+            print("进入medusa")
+            medusa_release_sql = "select count(*) as medusa_release_count from app left join app_deploy_history on app.id=app_deploy_history.app_id  \
+                where app_deploy_history.deploy_status = 'success' and   \
+                app_deploy_history.cluster = 'online' and  \
+                app.gitlab_pid in (%s)  and   \
+                (app_deploy_history.created_at>'%s 24:00' and app_deploy_history.created_at<='%s 24:00') " % (gitlab_pids, end_time, start_time)
+            print(medusa_release_sql)
+            medusa_release = mysql_object.sql_query(medusa_release_sql, 'medusa')
+            medusa_release_count = medusa_release[0][0]
+
+            release_json['earthworm_release_count'] = earthworm_release_count
+            release_json['medusa_release_count'] = medusa_release_count
+            release_json['name'] = name
+            release_json['name_english'] = name_english
+            release_json['person'] = person
+            release_json['query_time'] = query_time
+            result_list.append(release_json)
+    return result_list
+
+def release_cache(sql, judge_host):
+    cache_object = Cache_query()
+
+    start_time, end_time, old_time, query_time= get_time()   #query_time for ava.htm
+    path = request.path
+    cache_key = "008_" +query_time + "_" + start_time + "__" + path.replace('/', '_')   
+    cache = cache_object.get_redis(cache_key)
+
+    if cache:
+        print("okokokookokokokokokokk")
+        result_tuple = tuple(eval(cache))
+        result = result_tuple
+    else:
+        # 获取查询的详细信息
+        mysql_object = MySQL_query()
+        fields = ['id', 'name', 'name_english', 'person']
+        for_list = mysql_object.mysql_RowProxy_to_list(sql, fields, 'cmdb')
+        print(for_list)
+
+        if for_list:
+            rlock.acquire()   ##锁定
+            #### 开启三个线程查询  https://www.cnblogs.com/cuisi/p/6275053.html
+            mid = int(len(for_list)/3)
+            threads = []
+            t1 = MyThread(release_query,args=(0,mid, judge_host, for_list, start_time, end_time, old_time, query_time))
+            threads.append(t1)
+            t2 = MyThread(release_query,args=(mid,mid+mid, judge_host, for_list, start_time, end_time, old_time, query_time))
+            threads.append(t2)
+            t3 = MyThread(release_query,args=(mid+mid,len(for_list), judge_host, for_list, start_time, end_time, old_time, query_time))
+            threads.append(t3)
+            print(threads)
+
+            result = []
+            for t in threads:
+                t.setDaemon(True)
+                t.start()
+            ##join所完成的工作就是线程同步，即主线程任务结束之后，进入阻塞状态，一直等待其他的子线程执行结束之后
+            for t in threads:
+                t.join()  
+                result = result + t.get_result()
+
+            #result = release_query(judge_host, for_list, start_time, end_time, old_time, query_time)
+            # result_list 排序，进缓存
+            result.sort(key=lambda  x:(x['earthworm_release_count'],x['medusa_release_count']), reverse=False)
+            print("nonononononoononono")
+            cache_object.set_redis(cache_key,result)
+            rlock.release()   ### 解锁
+        
+    ### 获取release的总数
+    earthworm_release = 0
+    medusa_release = 0
+    for i in range(len(result)):
+        earthworm_release = earthworm_release + result[i]['earthworm_release_count']
+        medusa_release = medusa_release + result[i]['medusa_release_count']
+            
+    print(result)
+    return result, earthworm_release, medusa_release
+        
+def release():
+    sql = "select id, name, name_english, person_duty as person from business"
+    result, earthworm_release, medusa_release = release_cache(sql, 'business')
+    url = request.url   
+    url = url.split('?')[0] 
+    return  render_template('release.html', re=result, url=url, earthworm_release=earthworm_release, medusa_release=medusa_release)
+    
+    
+def release_business(business_name_english):
+    sql = "select subbusiness.id, subbusiness.name, subbusiness.name_english, subbusiness.person from business left join subbusiness \
+           on subbusiness.business_id=business.id where business.name_english='%s' " % business_name_english
+    result, earthworm_release, medusa_release = release_cache(sql, 'subbusiness')
+    url = request.url   
+    url = url.split('?')[0] 
+    if result:
+        return  render_template('release.html', re=result, url=url, earthworm_release=earthworm_release, medusa_release=medusa_release)
+    else:
+        return Response("请输入正确的链接", mimetype='application/json')
+
+
+

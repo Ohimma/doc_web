@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% block title %}aaaaaa{% endblock %}
+
+{% block meta %}
+  {{ super() }}
+   <meta charset="utf-8">
+{% endblock %}
+
+{% block styles %}
+  {{ super() }}
+  <script src="/static/js/echarts.common.min.js"></script>
+  <script>
+        $('#myButton').on('click', function () {
+          var $btn = $(this).button('loading')
+          // business logic...
+          $btn.button('reset')
+        })
+    </script>
+{% endblock %}
+
+{% block page_content %}
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div id="main" style="width: 100%;height: 900px;" ></div>
+
+    <script type="text/javascript">
+        // 通过 dom id 获取echart 实例
+        var myChart = document.getElementById('main');
+        //自适应宽高
+        // var myChartContainer = function () {
+        //     myChart.style.width = window.innerWidth+'px';
+        //     myChart.style.height = window.innerHeight+'px';
+        // };
+        // myChartContainer();
+        // 初始化 echart 实例
+        var myChart = echarts.init(myChart);
+
+        var  option = {
+        legend: {},
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+                type: 'cross',
+                label: {
+                    backgroundColor: '#6a7985'
+            }
+        }
+            },
+        toolbox: {
+            feature: {
+                saveAsImage: {}
+            }
+        }, 
+        dataset: {
+            source: [
+                ['product', '2018-1-09', '2018-1-10', '2018-1-11', '2018-1-12', '2018-1-13', '2018-1-14'],
+                ['Matcha Latte', 41.1, 30.4, 65.1, 53.3, 83.8, 98.7],
+                ['Milk Tea', 86.5, 92.1, 85.7, 83.1, 73.4, 55.1],
+                ['Cheese Cocoa', 24.1, 67.2, 79.5, 86.4, 65.2, 82.5],
+                ['Walnut Brownie', 55.2, 67.1, 69.2, 72.4, 53.9, 39.1]
+            ]
+        },
+        grid: [
+                 {left: '18%'},
+                 {right: '15%'},
+                 {containLabel: true}
+        ],
+        xAxis: {type: 'category', boundaryGap : false, name: '时间', nameLocation: 'end'},
+        yAxis: {type: 'value', name: '可用性', min: 'dataMin', scale: true},
+        series: [
+            {type: 'line', areaStyle: {}, seriesLayoutBy: 'row'},
+            {type: 'line', areaStyle: {}, seriesLayoutBy: 'row'},
+            {type: 'line', areaStyle: {}, seriesLayoutBy: 'row'},
+        ]
+    };
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+        //浏览器大小改变时重置大小
+        //myChartContainer();
+         window.onresize = function () {
+            myChart.resize(
+            );
+         };
+    </script>
+{% endblock %}
+
+
+
+

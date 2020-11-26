@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+
+{% block title %} Business {% endblock %}
+
+{% block meta %}
+  {{ super() }}
+   <meta charset="utf-8">
+{% endblock %}
+
+{% block styles %}
+  {{ super() }}
+  <script src="/static/js/echarts.common.min.js"></script>
+{% endblock %}
+
+{% block page_content %}
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div id="main" style="width: 100%;height: 900px;" ></div>
+
+    <script type="text/javascript">
+        // 通过 dom id 获取echart 实例
+        var myChart = document.getElementById('main');
+        // 初始化 echart 实例
+        var myChart = echarts.init(myChart);
+
+        // 指定图表的配置项和数据
+        var option = {
+            title : {
+                text: '业务线({{ re|length }})',
+                //x:'center'
+            },
+            tooltip : {
+                trigger: 'item',
+                formatter: "{a} <br/>{b} : {c} ({d}%)"
+            },
+            legend: {
+                show: true,
+                orient: 'horizontal',
+                left: '10%',
+                right: '0',
+            },
+            series : [
+                {
+                    name: '业务线',
+                    type: 'pie',
+                    selectedMode: 'multiple',
+                    radius : [0, '70%'],
+                    center: ['50%', '50%'],
+                    //radius : [0, '60%'],
+                    //center: ['50%', '60%'],
+                    //label: {
+                    //    normal: {
+                    //        position: 'inner'
+                    //    }
+                    //},
+                    //labelLine: {
+                    //    normal: {
+                    //        show: false
+                    //    }
+                    //},
+                    itemStyle: {
+                        emphasis: {
+                            shadowBlur: 10,
+                            shadowOffsetX: 0,
+                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                        }
+                    },
+                    data:[
+                    {% for i in re %}
+                    { value: {{ i['subbusiness_count'] }}, name: '{{ i['business_name'] }} ' , selected:true},
+                    {% endfor %}
+                    ],
+                },
+                //{
+                //    name:'SRE',
+                //    type:'pie',
+                //    radius: ['70%', '85%'],
+                //    center: ['50%', '60%'],
+                //    label: {
+                //        normal: {
+                //            formatter: '{a|{a}}{abg|}\n{hr|}\n  {b|{b}：}{c}  {per|{d}%}  ',
+                //            backgroundColor: '#eee',
+                //            borderColor: '#aaa',
+                //            borderWidth: 1,
+                //            borderRadius: 4,
+                //            rich: {
+                //                a: {
+                //                    color: '#999',
+                //                    lineHeight: 22,
+                //                    align: 'center'
+                //                },
+                //                hr: {
+                //                    borderColor: '#aaa',
+                //                    width: '100%',
+                //                    borderWidth: 0.5,
+                //                    height: 0
+                //                },
+                //                b: {
+                //                    fontSize: 16,
+                //                    lineHeight: 33
+                //                },
+                //                per: {
+                //                    color: '#eee',
+                //                    backgroundColor: '#334455',
+                //                    padding: [2, 4],
+                //                    borderRadius: 2
+                //                }
+                //            }
+                //        }
+                //    },
+                //    data:[
+                //        {value:1048, name:'安香樟'},
+                //        {value:251, name:'张少华'},
+                //        {value:147, name:'黄飞'},
+                //        {value:102, name:'其他'}
+                //    ]
+                //}
+            ]
+        };
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+        //浏览器大小改变时重置大小
+        //myChartContainer();
+         window.onresize = function () {
+            myChart.resize(
+            );
+         };
+
+    </script>
+
+
+{% endblock %}

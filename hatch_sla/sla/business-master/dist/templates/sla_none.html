@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}domain{% endblock %}
+
+{% block meta %}
+  {{ super() }}
+   <meta charset="utf-8">
+{% endblock %}
+
+
+{% block page_content %}
+    <H3> <a href="http://c4.guazi-corp.com/asset/domainlist/" >请尽快去cmdb http://c4.guazi-corp.com/asset/domainlist/ 完善信息,业务线英文简写也要有</a> </H3>
+
+    <table class="table table-hover">
+        <caption>无人认领</caption>
+        <tr class="active">
+            <th>id</th>
+            <th>域名</th>
+            <th>ip</th>
+            <th>use_for</th>
+            <th>person_duty</th>
+            <th>subbusiness_id</th>
+        </tr>
+        {% for i in re %}
+        <tr>
+             <td>{{ i[0] }}</td>
+             <td>{{ i[1] }}</td>
+             <td>{{ i[2] }}</td>
+             <td>{{ i[5] }}</td>
+             <td>{{ i[6] }}</td>
+             <td>{{ i[9] }}</td>
+         </tr>
+        {% endfor %}
+    </table>
+
+{% endblock %}

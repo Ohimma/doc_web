@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}Cache{% endblock %}
+
+{% block meta %}
+  {{ super() }}
+   <meta charset="utf-8">
+{% endblock %}
+
+
+{% block page_content %}
+    <table class="table table-hover" style="width:100%">
+            <tr class="active">
+                <th style="font-weight: bold ">Delete key (删除后请刷新页面)</th>
+                <th style="font-weight: bold ">Get key ( {{ re|length }} )</th>
+            </tr>
+            {% for i in re %}
+            <tr>
+                <td><a href="{{ url }}/delete/{{ i }}" > {{ i }}</a></td>
+                <td><a href="{{ url }}/get/{{ i }}" > {{ i }}</a></td>
+            </tr>
+            {% endfor %}
+     </table>
+{% endblock %}

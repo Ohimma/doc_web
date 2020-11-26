@@ -1,0 +1,39 @@
+stages:
+  - prepare
+  - build
+  - deploy
+  - push    #新增push用来将镜像push的正式云上
+ 
+prepare:
+  stage: prepare
+  script:
+    - med prepare -n business
+ 
+build:
+  stage: build
+  only:
+    - master
+    - online
+    - tags
+  script:
+    - med build -n business-build
+    - med cp business-build:/med/business/site .
+    - mv site public
+  artifacts:
+    paths:
+    - public
+
+ 
+deploy-dev:
+  stage: deploy
+  only:
+    - master
+  script:
+    - med deploy -n business-test
+ 
+push-online:   
+    stage: push
+    only:
+       - tags
+    script:
+       - med push -n business-online
