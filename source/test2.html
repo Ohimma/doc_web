@@ -1,0 +1,165 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div,h4,input,button {
+            margin: 0px;
+            padding: 0px;
+        }
+        .main {
+            max-width: 1200px;
+            min-width: 800px;
+            height: 600px;
+            background-color: pink;
+            margin: 100px auto;
+        }
+        .main>div {
+            height: 80%;
+            background: lightblue url("https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic.616pic.com%2Fbg_w1180%2F00%2F04%2F80%2F1twUCvZ85i.jpg&refer=http%3A%2F%2Fpic.616pic.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1612536461&t=7bed628521286fe6619830ac7d676796") ;
+            background-repeat: no-repeat;
+            background-position: 50% 50%;
+            background-size: 98% 90%;
+            position: relative;
+            top: 10%;
+        }
+
+        .login {
+            width: 30%;
+            height: 80%;
+            background-color: white;
+            position: absolute;
+            top: 10%;
+            right: 5%;
+        }
+        .ltop {
+            height: 70%;
+            border-bottom: 1px dashed #999;
+        }
+        .lbottom {
+            height: 30%;
+        }
+
+        .user_name, .password {
+            box-sizing: border-box;
+            height: 20%;
+            padding: 20px 0px;
+            
+        }
+        .user_name>img,
+        .password>img  {
+            box-sizing: border-box;
+            height: 100%;
+            background-color: #999;
+            border-radius: 10%;
+            margin-left: 10%;
+            float: left;
+        }
+        .user_name>input,
+        .password>input{
+            width: 68%;
+            height: 100%;
+            float: left;
+            font-size: 18px;
+            padding-left: 3px;
+
+            outline: none;
+            border: none;
+            background-color:  rgb(221, 213, 213);
+        }
+        
+        #user_name,
+        #password {
+            box-sizing: border-box;
+            display: block;
+            width: 80%;
+            height: 15%;
+            margin: 20px 0px 10px 30px;
+            padding-left: 40px;
+            font-size: 20px;
+            outline: none;
+            /* border-style: ridge; */
+        }
+        #user_name {
+            background: url("./_static/icon/user_name_1.png") ;
+            background-size: 10%;
+            background-position: 2% 50%;
+            background-repeat: no-repeat;
+        }
+        #password {
+            background: url("./_static/icon/password_1.png") ;
+            background-size: 10%;
+            background-position: 2% 50%;
+            background-repeat: no-repeat;
+        }
+
+        .checked {
+            box-sizing: border-box;
+            width: 50%;
+            height: 15%;
+            float: left;
+            background-color: lightblue;
+            padding: 10px 10px;
+        }
+        .forget {
+            width: 50%;
+            height: 15%;
+            float: right;
+            background-color: pink;
+        }
+
+        .submit {
+            box-sizing: border-box;
+            width: 80%;
+            height: 15%;
+            display: block;
+            margin: 20px 0px 10px 30px;
+            background-color: pink;
+            color: white;
+            top: 50%;    
+            /* box-sizing: border-box; */
+        }
+
+        h4 {
+            box-sizing: border-box;
+            width: 100%;
+            font-size: 20px;
+            text-align: center;
+            padding: 0px 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="main">
+        <div>
+            <div class="login">
+                <div class="ltop">
+                    <div class="user_name">
+                        <img src="./_static/icon/user_name_1.png" alt="">
+                        <input type="text" name="" id="" placeholder="用户名/手机号/邮箱账号">
+                    </div>
+                    <div class="password">
+                        <img src="./_static/icon/password_1.png" alt="">
+                        <input type="password" name="" id="" placeholder="请输入密码">
+                    </div>
+                    
+                    <div class="checked">
+                        <input type="checkbox" checked> 记住密码
+                    </div>
+                    <div class="forget">
+                        <a href="#">忘记密码</a>
+                    </div>
+                    <button class="submit">
+                        <h4>登录</h4>
+                    </button>
+                </div>
+                <div class="lbottom">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>
