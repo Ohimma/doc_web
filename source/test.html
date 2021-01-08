@@ -4,163 +4,235 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-        div, h4, input, button, a, img {
-            margin: 0px;
-            padding: 0px;
-        }
+        
         .main {
-            max-width: 1200px;
-            min-width: 800px;
-            height: 600px;
-            background-color: pink;
-            margin: 050px auto;
-        }
-        .main>div {
-            height: 80%;
-            background: lightblue url("https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic.616pic.com%2Fbg_w1180%2F00%2F04%2F80%2F1twUCvZ85i.jpg&refer=http%3A%2F%2Fpic.616pic.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1612536461&t=7bed628521286fe6619830ac7d676796") ;
-            background-repeat: no-repeat;
-            background-position: 50% 50%;
-            background-size: 98% 90%;
-            position: relative;
-            top: 10%;
-        }
-
-        .login {
-            width: 30%;
-            height: 80%;
-            background-color: white;
-            position: absolute;
-            top: 10%;
-            right: 5%;
-        }
-        .ltop {
-            height: 70%;
             width: 100%;
-            
-            float: left;
-            margin-left: 30px;
+            /* margin-bottom: 20px; */
         }
-        .lbottom {
-            
-            height: 30%;
-            width: 100%;
-            border-top: 1px dashed #999;
-            float: left;
+        /* :checked  input:checked  */
+        input:checked {
+            width: 40px;
+            height: 40px;
         }
-
-        #user_name {
-            box-sizing: border-box;
-            display: block;
-            width: 80%;
-            height: 16%;
-            margin-top: 25px;
-            padding-left: 40px;
-            font-size: 20px;
-            outline: none;
-            border-style: none;
-        
-            background: #e0e5ec url("./_static/icon/user_name_2.png") ;
-            background-size: 13% 103%;
-            background-repeat: no-repeat;
+        input:focus {
+            border: 2px solid pink;
+            background-color: burlywood;
         }
 
-        .password {
-            box-sizing: border-box;
-            height: 28%;
-            padding: 25px 0px 10px 0px;
-            
+        /* 状态类伪元素 */
+        a:link {
+            background-color: lightblue;
+            text-decoration: none;
+            font-size: 15px;
         }
-        .password>img  {
-            box-sizing: border-box;
-            height: 100%;
-            background-color: #8795a8;
-            border-radius: 10%;
-            padding: 7px;
-            float: left;
-        }
-        .password>input{
-            width: 69%;
-            height: 100%;
+        a:hover {
+            background-color: lightcoral;
             font-size: 20px;
-            padding-left: 3px;
-            outline: none;
-            border: none;
-            background-color: #e1e5eb;
-            float: left;
         }
-        
-        
-        .keep, .forget {
-            height: 20%; 
-            float: left;
-            box-sizing: border-box;
-            font-size: 18px;
-            padding-top: 20px;
+        a:active {
+            background-color: lightgray;
         }
-        .keep {
-            width: 30%;
-        }
-        .forget {
-            width: 50%;
-            margin-left: 25px;
-        }
-        
-        .ltop>button {
-            width: 80%;
-            height: 17%;
-            background-color: orangered;
+        a:visited {
             font-size: 25px;
-            color: white;
-            border-radius: 5%;
-            outline: none;
-            border: none;
-            margin-top: 7px; 
         }
 
-        .lbottom>img {
-            height: 20%;
-            margin: 30px 1px 0px 0px;
+        /* nth伪类 */
+        .nth_ul0,
+        .nth_ul1,
+        .nth_ul2,
+        .nth_ul3,
+        .nth_ul4 {
+            display: inline-block;
+            width: 150px;
+            background-color: pink;
         }
-        .lbottom>h4 {
-            display: inline;
-            height: 20px;
-            font-weight: normal; 
-            margin: 0px 0px 0px 50px;
+        .nth_ul0>li:nth-child(2),
+        .nth_ul1>li:nth-child(2) {
+            color: red;
         }
+        .nth_ul0>li:nth-child(3),
+        .nth_ul1>li:nth-child(3) {
+            color: green;
+        }
+        .nth_ul0>li:nth-last-child(1),
+        .nth_ul1>li:nth-last-child(1) {
+            color: blue;
+        }
+
+        .nth_ul2>li:nth-of-type(2),
+        .nth_ul3>li:nth-last-of-type(2) {
+            color: red;
+        }
+        .nth_ul2>li:nth-of-type(3),
+        .nth_ul3>li:nth-last-of-type(3) {
+            color: green;;
+        }
+        .nth_ul2>li:nth-last-of-type(1),
+        .nth_ul3>li:nth-last-of-type(1) {
+            color: blue;
+        }
+       
+        p>.text {
+            margin:0;
+            padding:0;
+        }
+        [class="text"] {
+            background-color: pink;
+        }
+        [type~="text"] {
+            background-color: lightblue;
+        }
+        [class^="d"] {
+         background-color: lightcoral;
+        }
+        [class$="chui"] {
+         background-color: lightcyan;
+        }
+
+        .yuansu {
+            background-color: lightcyan;
+            height: 100px;
+        }
+        
+        .yuansu::before {
+            content: "";
+            display: block;
+            width: 100px;
+            height: 30px;
+            background-color: blue;
+        }
+        .yuansu>p {
+            background-color: pink;
+        }
+        .yuansu::after {
+            content: "";
+            display: block;
+            width: 100px;
+            height: 30px;
+            background-color: red;
+        }
+        .yuansu~ul {
+            background-color: rgb(207, 145, 123);
+        }
+        .yuansu~ul>li {
+            float: left;
+        }
+        /*  */
+        /* .yuansu~ul>div {
+            clear: both;
+        } */
+        .yuansu~ul::after {
+            content: "";
+            display: block;
+            clear: both;
+        }
+        
+        .selection {
+            width: 300px;
+            /* height: 300px; */
+        }
+        .selection::selection {
+            background-color: pink;
+        }
+        .selection::first-letter {
+            color: red;
+            font-size: 30px;
+        }
+        .selection::first-line{
+            color: orange;
+            font-size: 20px;
+        }
+
     </style>
 </head>
 <body>
-    <div class="main">
-        <div>
-            <div class="login">
-                <form action="">
-                    <div class="ltop">
-                        <input type="text" name="user_name" id="user_name" placeholder="用户名/手机号/邮箱账号">
-                        <div class="password">
-                            <img src="./_static/icon/password_1.png" alt="">
-                            <input type="password" name="password" placeholder="请输入密码">
-                        </div>
-                        <div class="keep">
-                            <input type="checkbox" name="password_keep" id="checked1">
-                            <label for="checked1"> 记住密码</label>
-                        </div>
-                        <div class="forget">
-                            <a href="#">欢迎注册, </a>
-                            <a href="#">忘记密码</a>
-                        </div>
-                        <button>登  录</button>
-                    </div>
-                </form>
-                
-                <div class="lbottom">
-                    <h4>合作网站登录账号：</h4>
-                    <img src="./_static/icon/password_1.png" alt="">
-                    <img src="./_static/icon/password_1.png" alt="">
-                    <img src="./_static/icon/password_1.png" alt="">
-                </div>        
-            </div>
-        </div>
-    </div>
     
+    <!-- :checked  :focus  -->
+    <div class="main">
+        <input type="radio" name="ch" id="" checked>鸣人
+        <input type="radio" name="ch" id="">佐助
+    
+        <input type="checkbox" name="" id="ch2">路飞
+        <input type="checkbox" name="" id="ch2">海盗王
+    
+        <input type="text" name="">
+    </div>
+    <p>====== nth=======</p>
+    <div class="main">
+        <!-- 状态类伪元素 -->
+        <a href="#">百度一下，你就知道</a>
+    </div>
+
+    <div class="main">
+        <!-- nth 伪类 -->
+        <p>=== 全部设置正数1节点红色, 倒数2节点蓝色</p>
+        <ul class="nth_ul0">
+            <li>xx-child</li>
+            <li>红色</li>
+            <li>绿色</li>
+            <li>蓝色</li>
+        </ul>
+        <ul class="nth_ul1">
+            <li>xx-child</li>
+            <li>红色</li>
+            <span></span>
+            <li>绿色</li>
+            <li>黄色加了span</li>
+        </ul>
+        <ul class="nth_ul2">
+            <li>xx-of-type</li>
+            <li>红色</li>
+            <li>绿色</li>
+            <li>蓝色</li>
+        </ul>
+        <ul class="nth_ul3">
+            <li>xx-of-type</li>
+            <li>红色</li>
+            <li>绿色</li>
+            <li>黄色加了span</li>
+        </ul>
+        <!-- <ul class="nth_ul4">
+            <li>001</li>
+            <li>002</li>
+            <span></span>
+            <li>003</li>
+            <li>004</li>
+        </ul> -->
+    </div>
+
+    <div class="main">
+        <!-- 属性选择器 -->
+        <p>===== 属性选择器 ======</p>
+        <p class="text">text  [class="text"]</p>
+        <div class="text tiechui">text tiechui  [class$="chui"]</div>
+        <div class="dachui text">dachui text [class^="d"]</div>
+        <p class="text tiechui">text tiechui  [class$="chui"]</p>
+        <input type="text" name="" id="" placeholder="text [type~='text']">
+        <input type="password" name="" id="" placeholder="password">
+        <input type="email" name="" id="" placeholder="email">
+        <input type="text" name="" id="" placeholder="text [type~='text']">
+    </div>
+    <div class="main">
+        <!-- 伪元素 -->
+        <p>=======伪元素  ::after ::before=======</p>
+        <div class="yuansu">
+            <p>123</p>
+            <p>123</p>
+        </div>
+        <ul>
+            <li>0001</li>
+            <li>0002</li>
+            <li>0003</li>
+            <li>0004</li>
+            <!-- <div></div> -->
+        </ul>
+
+        <p class="selection">伪元素 ::selection   
+            默认元素选中时，没有效果
+            添加了 ::selection 伪元素，可以给他设置样式，使选中时有样式。
+
+            ::first-letter 表示对于首字母设置样式
+        </p>
+    </div>
 </body>
 </html>
