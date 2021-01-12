@@ -1,238 +1,35 @@
-<html lang="en">
+<!DOCTYPE html>
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <style>
-        
-        .main {
-            width: 100%;
-            /* margin-bottom: 20px; */
-        }
-        /* :checked  input:checked  */
-        input:checked {
-            width: 40px;
-            height: 40px;
-        }
-        input:focus {
-            border: 2px solid pink;
-            background-color: burlywood;
-        }
-
-        /* 状态类伪元素 */
-        a:link {
-            background-color: lightblue;
-            text-decoration: none;
-            font-size: 15px;
-        }
-        a:hover {
-            background-color: lightcoral;
-            font-size: 20px;
-        }
-        a:active {
-            background-color: lightgray;
-        }
-        a:visited {
-            font-size: 25px;
-        }
-
-        /* nth伪类 */
-        .nth_ul0,
-        .nth_ul1,
-        .nth_ul2,
-        .nth_ul3,
-        .nth_ul4 {
-            display: inline-block;
-            width: 150px;
-            background-color: pink;
-        }
-        .nth_ul0>li:nth-child(2),
-        .nth_ul1>li:nth-child(2) {
-            color: red;
-        }
-        .nth_ul0>li:nth-child(3),
-        .nth_ul1>li:nth-child(3) {
-            color: green;
-        }
-        .nth_ul0>li:nth-last-child(1),
-        .nth_ul1>li:nth-last-child(1) {
-            color: blue;
-        }
-
-        .nth_ul2>li:nth-of-type(2),
-        .nth_ul3>li:nth-last-of-type(2) {
-            color: red;
-        }
-        .nth_ul2>li:nth-of-type(3),
-        .nth_ul3>li:nth-last-of-type(3) {
-            color: green;;
-        }
-        .nth_ul2>li:nth-last-of-type(1),
-        .nth_ul3>li:nth-last-of-type(1) {
-            color: blue;
-        }
-       
-        p>.text {
-            margin:0;
-            padding:0;
-        }
-        [class="text"] {
-            background-color: pink;
-        }
-        [type~="text"] {
-            background-color: lightblue;
-        }
-        [class^="d"] {
-         background-color: lightcoral;
-        }
-        [class$="chui"] {
-         background-color: lightcyan;
-        }
-
-        .yuansu {
-            background-color: lightcyan;
-            height: 100px;
-        }
-        
-        .yuansu::before {
-            content: "";
-            display: block;
-            width: 100px;
-            height: 30px;
-            background-color: blue;
-        }
-        .yuansu>p {
-            background-color: pink;
-        }
-        .yuansu::after {
-            content: "";
-            display: block;
-            width: 100px;
-            height: 30px;
-            background-color: red;
-        }
-        .yuansu~ul {
-            background-color: rgb(207, 145, 123);
-        }
-        .yuansu~ul>li {
-            float: left;
-        }
-        /*  */
-        /* .yuansu~ul>div {
-            clear: both;
-        } */
-        .yuansu~ul::after {
-            content: "";
-            display: block;
-            clear: both;
-        }
-        
-        .selection {
-            width: 300px;
-            /* height: 300px; */
-        }
-        .selection::selection {
-            background-color: pink;
-        }
-        .selection::first-letter {
-            color: red;
-            font-size: 30px;
-        }
-        .selection::first-line{
-            color: orange;
-            font-size: 20px;
-        }
-
+<meta charset="utf-8"> 
+<title>txt</title>
+<style> 
+    div, ul, li, h4 {
+        margin: 0;
+        padding: 0;
+    }
+    div {
+        box-sizing: border-box;
+    }
+    
+    .one {
+        width: 100px;
+        height: 100px;
+        background-color: pink;
+    }
     </style>
 </head>
 <body>
     
-    <!-- :checked  :focus  -->
-    <div class="main">
-        <input type="radio" name="ch" id="" checked>鸣人
-        <input type="radio" name="ch" id="">佐助
-    
-        <input type="checkbox" name="" id="ch2">路飞
-        <input type="checkbox" name="" id="ch2">海盗王
-    
-        <input type="text" name="">
+    <p>============ 静态动画 花手</p>
+    <div class="one">
+        <span>aaa</span>
     </div>
-    <p>====== nth=======</p>
-    <div class="main">
-        <!-- 状态类伪元素 -->
-        <a href="#">百度一下，你就知道</a>
-    </div>
-
-    <div class="main">
-        <!-- nth 伪类 -->
-        <p>=== 全部设置正数1节点红色, 倒数2节点蓝色</p>
-        <ul class="nth_ul0">
-            <li>xx-child</li>
-            <li>红色</li>
-            <li>绿色</li>
-            <li>蓝色</li>
-        </ul>
-        <ul class="nth_ul1">
-            <li>xx-child</li>
-            <li>红色</li>
-            <span></span>
-            <li>绿色</li>
-            <li>黄色加了span</li>
-        </ul>
-        <ul class="nth_ul2">
-            <li>xx-of-type</li>
-            <li>红色</li>
-            <li>绿色</li>
-            <li>蓝色</li>
-        </ul>
-        <ul class="nth_ul3">
-            <li>xx-of-type</li>
-            <li>红色</li>
-            <li>绿色</li>
-            <li>黄色加了span</li>
-        </ul>
-        <!-- <ul class="nth_ul4">
-            <li>001</li>
-            <li>002</li>
-            <span></span>
-            <li>003</li>
-            <li>004</li>
-        </ul> -->
-    </div>
-
-    <div class="main">
-        <!-- 属性选择器 -->
-        <p>===== 属性选择器 ======</p>
-        <p class="text">text  [class="text"]</p>
-        <div class="text tiechui">text tiechui  [class$="chui"]</div>
-        <div class="dachui text">dachui text [class^="d"]</div>
-        <p class="text tiechui">text tiechui  [class$="chui"]</p>
-        <input type="text" name="" id="" placeholder="text [type~='text']">
-        <input type="password" name="" id="" placeholder="password">
-        <input type="email" name="" id="" placeholder="email">
-        <input type="text" name="" id="" placeholder="text [type~='text']">
-    </div>
-    <div class="main">
-        <!-- 伪元素 -->
-        <p>=======伪元素  ::after ::before=======</p>
-        <div class="yuansu">
-            <p>123</p>
-            <p>123</p>
-        </div>
-        <ul>
-            <li>0001</li>
-            <li>0002</li>
-            <li>0003</li>
-            <li>0004</li>
-            <!-- <div></div> -->
-        </ul>
-
-        <p class="selection">伪元素 ::selection   
-            默认元素选中时，没有效果
-            添加了 ::selection 伪元素，可以给他设置样式，使选中时有样式。
-
-            ::first-letter 表示对于首字母设置样式
-        </p>
-    </div>
+    <p>============ 静态动画 正方体</p>
+    <p>============ 静态动画 翻转文字</p>
+    <p>============ 静态动画 3d导航</p>
+    <p>============ 静态动画 照片墙</p>
+    <p>============ 静态动画 文字阴影</p>
+    <p>============ 静态动画 滤镜</p>
 </body>
 </html>
