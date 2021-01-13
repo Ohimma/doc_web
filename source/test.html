@@ -3,11 +3,56 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        #one {
+            width: 90%;
+            height: 1000px;
+            background-color: pink;
+            margin: 0 auto;
+        }
+        
+        @media screen and (max-width: 768px) {
+            #one {
+                background-color: lightblue;
+            }
+            #one>div {
+                width: 90%;
+                height: 100px;
+                margin: 10px auto;
+                background-color: gray;
+            }   
+        }
+        @media screen and (min-width: 768px) and (max-width: 992px) {
+            #one {
+                background-color: lightcoral;
+            }
+            #one>div {
+                width: 40%;
+                height: 200px;
+                margin: 10px 5%;
+                background-color: gray;
+                float: left;
+            }  
+        }
+        @media screen and (min-width: 992px) and (max-width: 1200px) {
+            #one {
+                background-color: red;
+            }
+        }
+        @import url(css/media01.css) screen and (min-width: 1200px);
+         /* @media screen and (min-width: 1200px) {
+            #one {
+                background-color: yellow;
+            }
+        } */
+    </style>
 </head>
 <body>
-
-    <iframe src="https://www.runoob.com/" width="1000" height="800">
-          <p>您的浏览器不支持  iframe 标签。</p>
-    </iframe>
+      <div id="one">
+          <div class="one01"></div>
+          <div class="one02"></div>
+          <div class="one03"></div>
+          <div class="one04"></div>
+      </div>
 </body>
 </html>
