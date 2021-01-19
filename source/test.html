@@ -1,42 +1,107 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8">
-<title>菜鸟教程(runoob.com)</title>
+<meta charset="utf-8"> 
+<title>菜鸟教程(runoob.com)</title> 
+<style>
+    .radius {
+        border-radius: 15px;
+        width: 100%;
+        height: 100%;
+    }
+    .border1 {
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        padding: 5px;
+        width: 100%;
+        height: 100%;
+    }
+
+    .polaroid1 {
+      width: 100%;
+      height: 100%;
+      background-color: white;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+      margin-bottom: 10px;
+    }
+    .polaroid1>img { 
+        width: 100%;
+        height: 60%;
+    }
+    div.container1 {
+      text-align: center;
+      padding: 10px 20px;
+    }
+
+    .container2 {
+        width: 900px;
+        height: 200px;
+        position: relative;
+    }
+    
+    .img_text {
+        position: absolute;
+        font-size: 18px;
+    }
+    .topleft {
+        top: 8px;
+        left: 16px;
+    }
+    .topright {
+        top: 8px;
+        right: 16px;
+    }
+    .bottomleft {
+        bottom: 8px;
+        left: 16px;
+    }
+    .container2>img { 
+        width: 100%;
+        height: 200px;
+        opacity: 0.3;
+    }
+
+    .one {
+        width: 900px;
+        height: 200px;
+        margin-bottom: 100px;
+    }
+    .one>div {
+        width: 25%;
+        height: 100%;
+        display: inline-block;
+        margin: 10px 20px 0px 20px;
+        box-sizing: border-box;
+    }
+
+</style>
 </head>
-<head>
-<script>
-function setCookie(cname,cvalue,exdays){
-	var d = new Date();
-	d.setTime(d.getTime()+(exdays*24*60*60*1000));
-	var expires = "expires="+d.toGMTString();
-	document.cookie = cname+"="+cvalue+"; "+expires;
-}
-function getCookie(cname){
-	var name = cname + "=";
-	var ca = document.cookie.split(';');
-	for(var i=0; i<ca.length; i++) {
-		var c = ca[i].trim();
-		if (c.indexOf(name)==0) { return c.substring(name.length,c.length); }
-	}
-	return "";
-}
-function checkCookie(){
-	var user=getCookie("username");
-	if (user!=""){
-		alert("欢迎 " + user + " 再次访问");
-	}
-	else {
-		user = prompt("请输入你的名字:","");
-  		if (user!="" && user!=null){
-            setCookie("username",user,30);
-            alert("创建成功")
-    	}
-	}
-}
-</script>
-</head>
-	
-<body onload="checkCookie()"></body>
-	
+<body>
+
+    <div class="one">
+        <div>
+            <p>圆角图片</p>
+            <img class="radius" src="http://www.runoob.com/wp-content/uploads/2016/04/trolltunga.jpg" alt="Norway" >
+        </div>
+
+        <div>
+            <p>border 缩略图</p>
+            <img class="border1" src="http://www.runoob.com/wp-content/uploads/2016/04/trolltunga.jpg" alt="Norway" >
+        </div>
+        <div class="polaroid1">
+          <img src="http://www.runoob.com/wp-content/uploads/2016/04/trolltunga.jpg" alt="Norway" >
+          <div class="container1">
+            <p>The Troll's tongue  响应式卡片</p>
+          </div>
+        </div>
+    </div>
+    <p>在图片各角添加文本信息</p>
+    <div class="container2">
+      <img src="http://www.runoob.com/wp-content/uploads/2016/04/trolltunga.jpg" alt="Norway" >
+      <div class="img_text topleft">左上角</div>
+      <div class="img_text topright">右上角</div>
+      <div class="img_text bottomleft">左下角</div>
+    </div>
+
+</body>
 </html>
