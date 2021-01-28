@@ -18,7 +18,7 @@
 # -- Project information -----------------------------------------------------
 
 project = 'web'
-copyright = 'ohimma 2020-07-01 '
+copyright = 'ohimma 2020-12-01 '
 author = 'ohimma'
 
 # The full version, including alpha/beta/rc tags
