@@ -1,5 +1,8 @@
 build/*
 nodejs/*
+node_modules/*
+js/*
+html/*
 test/*
 aa*
 bb*
