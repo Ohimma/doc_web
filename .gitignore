@@ -2,8 +2,9 @@ build/*
 nodejs/*
 node_modules/*
 js/*
+vue/*
 html/*
 test/*
-vue/*
+test*
 aa*
 bb*
