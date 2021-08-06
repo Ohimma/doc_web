@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# git remote add github git@github.com:Ohimma/doc_sre.git
+# git remote add gitee  git@gitee.com:ohimma/doc_sre.git
 mes=$1
 
 if [ -z $1 ];then
@@ -9,5 +11,6 @@ else
    echo "git commit -m \"$mes\""
    git add --all .
    git commit -m "$mes"
-   git push
+   git push github master
+   git push gitee  master
 fi

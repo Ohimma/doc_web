@@ -8,3 +8,4 @@ test/*
 test*
 aa*
 bb*
+.DS_Store
