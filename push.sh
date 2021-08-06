@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# git remote add github git@github.com:Ohimma/doc_sre.git
-# git remote add gitee  git@gitee.com:ohimma/doc_sre.git
+# git remote add github git@github.com:Ohimma/doc_web.git
+# git remote add gitee  git@gitee.com:ohimma/doc_web.git
 mes=$1
 
 if [ -z $1 ];then
